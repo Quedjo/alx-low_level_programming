@@ -2,6 +2,7 @@
 
 /**
  * _islower - determines if a character is upper or lower case
+ *@c: character used for testing
  * Return: 0 or 1
  */
 
