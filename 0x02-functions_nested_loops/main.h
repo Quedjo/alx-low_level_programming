@@ -1,5 +1,6 @@
+#ifndef Main
+#define Main
 
-char _putchar(char x)
-{
-	return x;
-}
+int _putchar(char c);
+
+#endif
