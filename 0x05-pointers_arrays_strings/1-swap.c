@@ -2,7 +2,8 @@
 
 /**
  * swap_int - swap 2 intergers
- * @int *a, int *b: testing vars
+ * @a: testing var
+ * @b: testing vars
  */
 
 void swap_int(int *a, int *b)
