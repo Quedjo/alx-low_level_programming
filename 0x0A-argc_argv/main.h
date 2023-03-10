@@ -1,5 +1,5 @@
-#ifndef main
-#define main
+#ifndef Main
+#define Main
 
 /**
  * _putchar - puts character to standard output
@@ -7,6 +7,5 @@
  */
 
 int _putchar(char c);
-int main(int argc, char *argv[]);
 
 #endif
