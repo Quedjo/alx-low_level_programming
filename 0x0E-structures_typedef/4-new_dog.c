@@ -1,83 +1,65 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "dog.h"
-
+#include <stdlib.h>
 /**
- * len - find length of string
- * @str: string
- * Return: length
+ * my_strlen - finds string length in order to malloc properly
+ * @str: input string
+ * Return: string length unsigned integer
  */
-int len(char *str)
+unsigned int my_strlen(char *str)
 {
-	int i;
+	unsigned int i = 0;
 
-	for (i = 0; *(str + i); i++)
-		;
+	while (*(str + i) != '\0')
+		i++;
 	return (i);
 }
 /**
- * strcpy - copies the string pointed to by src,
- * including the terminating null byte (\0),
- * to the buffer pointed to by dest
- * @dest: copy source to this buffer
- * @src: this is the source to copy
- * Return: copy of original source
+ * my_strcpy - copies string
+ * @to: pointer to new string
+ * @from: pointer to string to copy
+ * Return: void
  */
-char *strcpy(char *dest, char *src)
+void my_strcpy(char *to, char *from)
 {
-	int i;
+	unsigned int i, len = my_strlen(from);
 
-	for (i = 0; i <= len(src); i++)
-		dest[i] = src[i];
-	return (dest);
+	for (i = 0; i <= len; i++)
+		to[i] = from[i];
 }
 /**
- * new_dog - create new instance of struct dog
- * @name: member
- * @age: member
- * @owner: member
- * Return: initialized instance of struct dog
+ * new_dog - creates new type of struct dog
+ * @name: dog name
+ * @age: dog age
+ * @owner: dog owner
+ * Return: pointer to the type of struct dog
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *dog1;
-	char *copy_of_name;
-	char *copy_of_owner;
+	unsigned int name_len = my_strlen(name), owner_len = my_strlen(owner);
+	dog_t *snoop_dogg;
 
-	dog1 = malloc(sizeof(dog_t)); /* validate if dog1 initiated correctly */
-	if (dog1 == NULL)
-		return (NULL);
-
-	dog1->age = age;
-
-	/* make copies of struct members and validate, else free on error */
-	/* set values of struct members to copies of arguments or set to NULL */
-	if (name != NULL)
+	snoop_dogg = malloc(sizeof(dog_t));
+	if (snoop_dogg)
 	{
-		copy_of_name = malloc(len(name) + 1);
-		if (copy_of_name == NULL)
+		snoop_dogg->name = malloc(sizeof(char) * (name_len + 1));
+		if (snoop_dogg->name)
 		{
-			free(dog1);
-			return (NULL);
+			snoop_dogg->owner = malloc(sizeof(char) * (owner_len + 1));
+			if (snoop_dogg->owner)
+			{
+				my_strcpy(snoop_dogg->name, name);
+				snoop_dogg->age = age;
+				my_strcpy(snoop_dogg->owner, owner);
+				return (snoop_dogg);
+			}
+			else
+			{
+				free(snoop_dogg->name);
+				free(snoop_dogg);
+			}
 		}
-		dog1->name = strcpy(copy_of_name, name);
+		else
+			free(snoop_dogg);
 	}
-	else
-		dog1->name = NULL;
-
-	if (owner != NULL)
-	{
-		copy_of_owner = malloc(len(owner) + 1);
-		if (copy_of_owner == NULL)
-		{
-			free(copy_of_name);
-			free(dog1);
-			return (NULL);
-		}
-		dog1->owner = strcpy(copy_of_owner, owner);
-	}
-	else
-		dog1->owner = NULL;
-
-	return (dog1);
+	return (NULL);
 }
