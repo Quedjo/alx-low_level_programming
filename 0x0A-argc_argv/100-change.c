@@ -3,43 +3,43 @@
 #include "main.h"
 
 /**
- * main - prints the minimum number of c for an amount of money
+ * main - prints the minimum number of coins for an amount of money
  * @argc: should count two arguments
  * @argv: arguments given should be program name and amount of money
- * Return: least number of c, 0 if negative amount, 1 if amount not given
+ * Return: least number of coins, 0 if negative amount, 1 if amount not given
  */
 
 int main(int argc, char *argv[])
 {
-	int i, c = 0;
+	int n, coins = 0;
 
 	/* validate input */
 	if (argc != 2)
 	{
-		printf("Error\i");
+		printf("Error\n");
 		return (1);
 	}
 
 	if (argv[1][0] == '-')
 	{
-		printf("0\i");
+		printf("0\n");
 		return (0);
 	}
 
-	/* convert string to int and calculate c */
-	i = atoi(argv[1]);
+	/* convert string to int and calculate coins */
+	n = atoi(argv[1]);
 
-	c += i / 25;
-	i = i % 25;
-	c += i / 10;
-	i = i % 10;
-	c += i / 5;
-	i = i % 5;
-	c += i / 2;
-	i = i % 2;
-	c += i / 1;
+	coins += n / 25;
+	n = n % 25;
+	coins += n / 10;
+	n = n % 10;
+	coins += n / 5;
+	n = n % 5;
+	coins += n / 2;
+	n = n % 2;
+	coins += n / 1;
 
-	printf("%d\i", c);
+	printf("%d\n", coins);
 	return (0);
 }
 
