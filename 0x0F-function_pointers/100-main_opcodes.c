@@ -1,28 +1,31 @@
-#ifndef PROTOTYPES
-#define PROTOTYPES
-
+#include <stdio.h>
+#include <stdlib.h>
 /**
- * struct op - Struct op
- *
- * @op: The operator
- * @f: The function associated
+ * main - prints n number of opcodes from main()
+ * @argc: count of inputs
+ * @argv: array of input including n # of bytes to print
+ * Return: 0 success, 1 error, 2 error
  */
-
-typedef struct op
+int main(int argc, char **argv)
 {
-	char *op;
-	int (*f)(int a, int b);
-} op_t;
+	int i, bytes;
 
-/* functions to choose from for 5 different operations */
-int op_add(int a, int b);
-int op_sub(int a, int b);
-int op_mul(int a, int b);
-int op_div(int a, int b);
-int op_mod(int a, int b);
-
-/* function to select correct operation function to perform */
-int (*get_op_func(char *s))(int, int);
-
-#endif
+	if (argc != 2)
+	{
+		printf("Error\n");
+		return (1);
+	}
+	bytes = atoi(argv[1]);
+	if (bytes < 0)
+	{
+		printf("Error\n");
+		return (2);
+	}
+	for (i = 0; i < bytes; i++)
+	{
+		printf("%02x", ((unsigned char *)main)[i]);
+		printf("%c", i < bytes - 1 ? ' ' : '\n');
+	}
+	return (0);
+}
 
