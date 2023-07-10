@@ -9,36 +9,43 @@
 
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	int descripter; 
-	descripter = open(filename, O_RDONLY);
-	if (descripter == -1)
+	int fd; /* file descriptor */
+	ssize_t n_read, n_wrote;
+	char *buffer;
+
+	if (filename == NULL)
 		return (0);
 
-	
-	buff = malloc(sizeof(char) * letters);
-	if (buff == NULL)
+	/* open */
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
 		return (0);
 
-	
-	reader = read(descripter, buff, letters);
-	if (reader == -1)
+	/* malloc buffer */
+	buffer = malloc(sizeof(char) * letters);
+	if (buffer == NULL)
+		return (0);
+
+	/* read */
+	n_read = read(fd, buffer, letters);
+	if (n_read == -1)
 	{
-		free(buff);
-		close(descripter);
+		free(buffer);
+		close(fd);
 		return (0);
 	}
 
-	
-	writer = write(STDOUT_FILENO, buff, reader);
-	if (writer == -1)
+	/* write */
+	n_wrote = write(STDOUT_FILENO, buffer, n_read);
+	if (n_wrote == -1)
 	{
-		free(buff);
-		close(descripter);
+		free(buffer);
+		close(fd);
 		return (0);
 	}
 
-	close(descripter);
-	return (reader);
+	close(fd);
+	return (n_read);
 
 }
 
